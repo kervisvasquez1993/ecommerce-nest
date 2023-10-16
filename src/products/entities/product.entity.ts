@@ -1,5 +1,5 @@
-import { Column, PrimaryGeneratedColumn } from "typeorm"
-
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+@Entity()
 export class Product {
     @PrimaryGeneratedColumn('uuid')
     id: string
@@ -7,7 +7,7 @@ export class Product {
         unique: true
     })
     title: string
-    @Column('number', {
+    @Column('float', {
         default: 0
     })
     price: number
