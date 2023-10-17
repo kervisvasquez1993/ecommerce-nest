@@ -30,6 +30,8 @@ export class Product {
     @Column('text')
     gender: string
 
+    
+
     @BeforeInsert()
     checkSlugInsert() {
         if (!this.slug) {
@@ -41,6 +43,13 @@ export class Product {
             .replaceAll(' ', '_')
             .replaceAll("'", '')
     }
-    // @BeforeUpdate()
+    @BeforeUpdate()
+    chackSlugUpdate() {
+        this.slug = this.slug
+            .toLocaleLowerCase()
+            .replaceAll(' ', '_')
+            .replaceAll("'", '')
+    }
+
 
 }
