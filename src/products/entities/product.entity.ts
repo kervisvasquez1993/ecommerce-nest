@@ -1,6 +1,6 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { ProductImage } from "./product-image.entity"
-@Entity()
+@Entity({name : "produts"})
 export class Product {
     @PrimaryGeneratedColumn('uuid')
     id: string
@@ -43,12 +43,10 @@ export class Product {
         
     )
     images? : ProductImage[]
-
     @BeforeInsert()
     checkSlugInsert() {
         if (!this.slug) {
             this.slug = this.title
-
         }
         this.slug = this.slug
             .toLocaleLowerCase()
