@@ -99,7 +99,7 @@ export class ProductsService {
     try {
       if (images) {
         await queryRunner.manager.delete(ProductImage, { product: { id } })
-        product.images = images.map(image => this.productImageRepository.create({url: image}))
+        product.images = images.map(image => this.productImageRepository.create({ url: image }))
       }
 
       await queryRunner.manager.save(product);
@@ -107,7 +107,8 @@ export class ProductsService {
       // const response = await this.productRepository.save(product)
       await queryRunner.commitTransaction();
       await queryRunner.release();
-      return product
+      return this.findOnePlain(id)
+
       // return { data: response }
     } catch (error) {
       await queryRunner.rollbackTransaction()
@@ -131,5 +132,18 @@ export class ProductsService {
 
     throw new InternalServerErrorException("Unepected error, check server logs")
 
+  }
+
+  async deleteAllProducts() {
+    const query = this.productRepository.createQueryBuilder('product')
+
+    try {
+      return await query
+        .delete()
+        .where({})
+        .execute()
+    } catch (error) {
+      this.handleDbExceptions(error)
+    }
   }
 }
