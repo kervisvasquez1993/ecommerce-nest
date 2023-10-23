@@ -1,6 +1,8 @@
 # compiled output
+.env
 /dist
 /node_modules
+/public/products/*
 
 # Logs
 logs

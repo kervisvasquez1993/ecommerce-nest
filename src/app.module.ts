@@ -18,8 +18,11 @@ import { FilesModule } from './files/files.module';
     autoLoadEntities: true,
     synchronize: true,
   }),
+
+
     ProductsModule, CommonModule, SeedModule, FilesModule
   ],
+
   controllers: [],
   providers: [],
 })
