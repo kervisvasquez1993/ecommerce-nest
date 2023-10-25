@@ -4,12 +4,15 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from "bcrypt"
 import { LoginUserDto, CreateUserDto } from './dto';
+import { IJwtPayload } from './interfaces/jwt-payload.interfaces';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>
+    private readonly userRepository: Repository<User>,
+    private readonly jwtService: JwtService
 
   ) { }
   async create(createUserDto: CreateUserDto) {
@@ -18,7 +21,7 @@ export class AuthService {
       const user = this.userRepository.create({ ...userData, password: bcrypt.hashSync(password, 10) });
       await this.userRepository.save(user);
       delete user.password
-      return user;
+      return { ...user, token: this.getJWT({ email: user.email }) }
     } catch (error) {
       this.handleDBError(error);
     }
@@ -32,17 +35,23 @@ export class AuthService {
       select: { email: true, password: true }
     })
     if (!user) {
-    
+
       throw new UnauthorizedException("Credenciales are not valid(Email)")
     }
-    if(!bcrypt.compareSync(password, user.password)){
+    if (!bcrypt.compareSync(password, user.password)) {
       throw new UnauthorizedException("Credenciales are not valid(Password)")
     }
 
 
-    return user
-    //todo: Retornar jwt
+    return { ...user, token: this.getJWT({ email: user.email }) }
 
+
+
+  }
+
+  private getJWT(payload: IJwtPayload) {
+    const token = this.jwtService.sign(payload)
+    return token
 
   }
   private handleDBError(error: any): never {

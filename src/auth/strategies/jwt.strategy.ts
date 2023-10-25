@@ -14,25 +14,21 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         configService: ConfigService,
     ) {
         super({
-            secretOrKay: configService.get("JWTSECRET"),
+            secretOrKey: configService.get("JWTSECRET"),
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         })
 
     }
-
     async validate(payload: IJwtPayload): Promise<User> {
-
+        console.log("hola")
         const { email } = payload
         const user = await this.userRepository.findOneBy({ email })
         if (!user) {
             throw new UnauthorizedException("Token not valid")
         }
-
         if (!user.isActive) {
             throw new UnauthorizedException("User is inactive, talk with an admin")
         }
-
-        return
-
+        return user
     }
 }
