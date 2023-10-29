@@ -1,5 +1,5 @@
 # compiled output
-.env
+
 /dist
 /node_modules
 /public/products/*
@@ -36,3 +36,4 @@ static/products/*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.env
