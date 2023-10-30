@@ -1,5 +1,3 @@
-export interface IJwtPayload{
+export interface IJwtPayload {
     id: string;
-   
-    
 }
