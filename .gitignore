@@ -6,6 +6,7 @@
 
 # Logs
 logs
+.env
 *.log
 npm-debug.log*
 pnpm-debug.log*
@@ -36,4 +37,3 @@ static/products/*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.env
