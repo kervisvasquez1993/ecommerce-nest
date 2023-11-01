@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ProductsService } from './../products/products.service';
 import { initialData } from './data/data-seed';
+import { Auth } from 'src/auth/decorators/auth.decorators';
+import { ValidRole } from 'src/auth/interfaces/valid-role';
 
 @Injectable()
 export class SeedService {
