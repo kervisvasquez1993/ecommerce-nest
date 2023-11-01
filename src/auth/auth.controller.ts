@@ -7,6 +7,7 @@ import { User } from './entities/user.entity';
 import { UserRoleGuard } from './guards/user-role/user-role.guard';
 import { RoleProtected } from './decorators/role-protected/role-protected.decorator';
 import { ValidRole } from './interfaces/valid-role';
+import { Auth } from './decorators/auth.decorators';
 
 
 @Controller('auth')
@@ -33,9 +34,17 @@ export class AuthController {
   }
 
   @Get("private2")
-  @RoleProtected(ValidRole.superadmin)
+  @RoleProtected(ValidRole.superadmin, ValidRole.admin)
   @UseGuards(AuthGuard(), UserRoleGuard)
   privateRouter(@GetUser() user: User) {
+    return {
+      ok: true,
+      user
+    }
+  }
+  @Get("private3")
+  @Auth(ValidRole.superadmin)
+  privateRouter3(@GetUser() user: User) {
     return {
       ok: true,
       user
