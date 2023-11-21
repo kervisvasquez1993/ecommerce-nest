@@ -6,6 +6,8 @@ import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { FilesModule } from './files/files.module';
 import { AuthModule } from './auth/auth.module';
+import { CategoriesModule } from './categories/categories.module';
+import { ShopsModule } from './shops/shops.module';
 
 @Module({
   imports: [ConfigModule.forRoot(),
@@ -21,7 +23,7 @@ import { AuthModule } from './auth/auth.module';
   }),
 
 
-    ProductsModule, CommonModule, SeedModule, FilesModule, AuthModule
+    ProductsModule, CommonModule, SeedModule, FilesModule, AuthModule, CategoriesModule, ShopsModule
   ],
 
   controllers: [],
