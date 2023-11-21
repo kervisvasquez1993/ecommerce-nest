@@ -1,6 +1,7 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { ProductImage } from "./product-image.entity"
 import { User } from "src/auth/entities/user.entity"
+import { Category } from "src/categories/entities/category.entity"
 @Entity({ name: "produts" })
 export class Product {
     @PrimaryGeneratedColumn('uuid')
@@ -37,6 +38,9 @@ export class Product {
     })
     tags: string[]
 
+    @ManyToOne(() => Category, category => category.products)
+    category: Category;
+
     @OneToMany(
         () => ProductImage,
         productImage => productImage.product,
@@ -44,9 +48,6 @@ export class Product {
 
     )
     images?: ProductImage[]
-
-
-
     @ManyToOne(
         () => User,
         (user) => user.product,

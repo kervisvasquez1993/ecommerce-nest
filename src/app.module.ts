@@ -8,8 +8,6 @@ import { FilesModule } from './files/files.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ShopsModule } from './shops/shops.module';
-import { CategoriesModule } from './categories/categories.module';
-import { ShopsModule } from './shops/shops.module';
 
 @Module({
   imports: [ConfigModule.forRoot(),
@@ -23,11 +21,8 @@ import { ShopsModule } from './shops/shops.module';
     autoLoadEntities: true,
     synchronize: true,
   }),
-
-
     ProductsModule, CommonModule, SeedModule, FilesModule, AuthModule, CategoriesModule, ShopsModule
   ],
-
   controllers: [],
   providers: [],
 })
